@@ -16,8 +16,13 @@ public class StatEngine {
     private String username;
     private boolean privacyhuh;
     private String rank;
+    private String compSR;
+    private String compRank;
     private String endorsementLevel;
     private HashMap<String, String> endorsements = new HashMap<>();
+
+    // For our misc. helpers
+    private Utils util = new Utils();
 
     // Advanced stats for the player if it is a public profile
 
@@ -34,7 +39,7 @@ public class StatEngine {
 
         // catch any errors with the input.
         catch (IOException e) {
-            System.out.println("Bad IO at StatEngine input: " + wplink);
+            System.out.println("** Bad IO at StatEngine input: " + wplink);
         }
     }
 
@@ -44,7 +49,7 @@ public class StatEngine {
         this.grabProfileIdentifiers();
 
         if (privacyhuh){
-            System.out.println("User " + username + " has a private profile.");
+            System.out.println("** User " + username + " has a private profile.");
 
             // Let the user know that we have SOME information.
             System.out.println("What we do know:");
@@ -70,50 +75,75 @@ public class StatEngine {
         // Used to temporarily hold the CSS Query.
         String cssQuery;
 
-        // Grab Profile Username
-        cssQuery = "h1.header-masthead";
-        Element usernameElement = webpage.select(cssQuery).first();
-        this.username = this.stripHTML(usernameElement.toString());
+        try {
+            // Grab Profile Username
+            cssQuery = "h1.header-masthead";
+            Element usernameElement = webpage.select(cssQuery).first();
+            this.username = this.util.stripHTML(usernameElement.toString());
 
-        // Grab Profile Privacy
-        cssQuery = "p.masthead-permission-level-text";
-        Element privacyElement = webpage.select(cssQuery).first();
-        String privacy = this.stripHTML(privacyElement.toString());
-        if (privacy.contains("Public Profile")) {
-            privacyhuh = false;
+            // Grab Profile Privacy
+            cssQuery = "p.masthead-permission-level-text";
+            Element privacyElement = webpage.select(cssQuery).first();
+            String privacy = this.util.stripHTML(privacyElement.toString());
+            privacyhuh = !privacy.contains("Public Profile");
+
+            // Grab Profile Rank and calculate it.
+            cssQuery = "div.player-level";
+            Element portraitElement = webpage.select(cssQuery).first();
+            String portrait = portraitElement.attr("style");
+            cssQuery = "div.player-rank";
+            Element starElement = webpage.select(cssQuery).first();
+            String star = starElement.attr("style");
+            cssQuery = "div.u-vertical-center";
+            Element rankElement = webpage.select(cssQuery).first();
+            String baseRank = this.util.stripString(this.util.stripHTML(rankElement.toString()));
+            //rankify all three pieces of data.
+            this.rank = this.util.rankify(baseRank, portrait, star);
+        } catch (NullPointerException NPE) {
+            System.out.println("** User does not exist.");
         }
-        else {
-            privacyhuh = true;
+
+        try {
+            // Grab Competative Rank
+            cssQuery = "div.competitive-rank";
+            Element compRankElement = webpage.select(cssQuery).first();
+            this.compRank = this.determineCompetitiveRank(compRankElement.toString());
+
+            // Grab Competative SR
+            Element compSRElement = webpage.select(cssQuery).first();
+            this.compSR = this.util.stripString(this.util.stripHTML(compSRElement.toString()));
+        } catch (NullPointerException NPE) {
+            System.out.println("** User has no Competitive placement this season.");
+            this.compRank = "Not placed.";
+            this.compSR = "Not placed.";
         }
 
-        // Grab Profile Rank
-        // TODO: determine actual rank
-        cssQuery = "div.u-vertical-center";
-        Element rankElement = webpage.select(cssQuery).first();
-        this.rank = this.stripString(this.stripHTML(rankElement.toString()));
+        try {
+            // Grab endorsement information
+            // endorsement level
+            cssQuery = "div.u-center";
+            Element eLvlElement = webpage.select(cssQuery).first();
+            this.endorsementLevel = this.util.stripString(this.util.stripHTML(eLvlElement.toString()));
 
-        // Grab endorsement information
-        // endorsement level
-        cssQuery = "div.u-center";
-        Element eLvlElement = webpage.select(cssQuery).first();
-        this.endorsementLevel = this.stripString(this.stripHTML(eLvlElement.toString()));
+            // Grab all 3 endorsement value categories.
+            // Use next element sibling to go trough the CSS elements.
+            cssQuery = "svg.EndorsementIcon-border";
+            Element endorsementCategoriesElement = webpage.select(cssQuery).first();
+            //CSS: "EndorsementIcon-border EndorsementIcon-border--shotcaller"
+            String shotcallerPercent = endorsementCategoriesElement.attr("data-value");
+            this.endorsements.put("Shotcaller", shotcallerPercent);
+            //CSS: "EndorsementIcon-border EndorsementIcon-border--teammate"
+            endorsementCategoriesElement = endorsementCategoriesElement.nextElementSibling();
+            String teammatePercent = endorsementCategoriesElement.attr("data-value");
+            this.endorsements.put("Teammate", teammatePercent);
+            //CSS: "EndorsementIcon-border EndorsementIcon-border--sportsmanship"
+            endorsementCategoriesElement = endorsementCategoriesElement.nextElementSibling();
+            String sportsmanshipPercent = endorsementCategoriesElement.attr("data-value");
+            this.endorsements.put("Sportsmanship", sportsmanshipPercent);
+        } catch (NullPointerException NPE0) {
+            System.out.println("User has not been endorsed.");
 
-        // Grab all 3 endorsement value categories.
-        // Use next element sibling to go trough the CSS elements.
-        cssQuery = "svg.EndorsementIcon-border";
-        Element endorsementCategoriesElement = webpage.select(cssQuery).first();
-        //CSS: "EndorsementIcon-border EndorsementIcon-border--shotcaller"
-        String shotcallerPercent = endorsementCategoriesElement.attr("data-value");
-        this.endorsements.put("Shotcaller", shotcallerPercent);
-        //CSS: "EndorsementIcon-border EndorsementIcon-border--teammate"
-        endorsementCategoriesElement = endorsementCategoriesElement.nextElementSibling();
-        String teammatePercent = endorsementCategoriesElement.attr("data-value");
-        this.endorsements.put("Teammate", teammatePercent);
-        //CSS: "EndorsementIcon-border EndorsementIcon-border--sportsmanship"
-        endorsementCategoriesElement = endorsementCategoriesElement.nextElementSibling();
-        String sportsmanshipPercent = endorsementCategoriesElement.attr("data-value");
-        this.endorsements.put("Sportsmanship", sportsmanshipPercent);
-
+        }
         // Uncomment below to debug this process.
         //this.basicProfileDataDebugger();
 
@@ -121,23 +151,30 @@ public class StatEngine {
         //System.out.println("\n\n\n" + profileElement);
     }
 
-    // Utility that strips HTML markup from code.
-    private String stripHTML(String code){
-        // in return: strip HTML markup
-        return code.replaceAll("<[^>]*>", "");
+    private String determineCompetitiveRank(String imageURL) {
+        if (imageURL.contains("Grandmaster")) {
+            return "Grandmaster";
+        } else if (imageURL.contains("Diamond")) {
+            return "Diamond";
+        } else if (imageURL.contains("Platinum")) {
+            return "Platinum";
+        } else if (imageURL.contains("Gold")) {
+            return "Gold";
+        } else if (imageURL.contains("Silver")) {
+            return "Silver";
+        } else {
+            return "Bronze";
+        }
     }
 
-    // Utility that strips whitespace and new lines from a string.
-    private String stripString(String text){
-        // in return: trip linebreaks / spaces / new lines
-        return text.replaceAll("\\r| |\\n", "");
-    }
 
     private void basicProfileDataDebugger(){
-        System.out.println("Success ["+ wpURL + "]");
+        System.out.println("Success reaching and connecting to [" + wpURL + "]");
         System.out.println("Username: " + this.username);
         System.out.println("Private Account? " + privacyhuh);
         System.out.println("Rank: " + this.rank);
+        System.out.println("Competitive Rank: " + this.compRank);
+        System.out.println("Competitive Season Rank: " + this.compSR);
         System.out.println("Endorsement Level: " + this.endorsementLevel);
         for (String key : this.endorsements.keySet()){
             System.out.println(" - " + key + " : " + this.endorsements.get(key));
@@ -190,4 +227,15 @@ public class StatEngine {
     public String getSpecificEndorsementDistribution(String type){
         return this.endorsements.get(type);
     }
+
+    // Return the users SR
+    public String getCurrentSeasonSR() {
+        return this.compSR;
+    }
+
+    // Return the users Competitive Rank
+    public String getCurrentSeasonRank() {
+        return this.compRank;
+    }
+
 }

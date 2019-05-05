@@ -18,11 +18,13 @@
 
 :heavy_check_mark: Differentiate public and private profiles
 
-:x: Determine profile rank
+:heavy_check_mark: Determine profile rank correctly
 
-:x: Determine profile competitive status
+:heavy_check_mark: Determine profile competitive status
 
 :heavy_check_mark: Create data structures for quick play and competitive modes
+
+:heavy_check_mark: Handle non-existing, non-placed and non-endorsed accounts.
 
 :x: Save and sort ingested data into proper data structures
 

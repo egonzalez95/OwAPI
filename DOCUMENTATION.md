@@ -16,13 +16,21 @@
 
     Retrieves the profiles rank.
     
+**getCompetitiveRank()** :String
+    
+        Retrieves the profiles current competitive rank.
+        
+**getCompSR()** :String
+    
+        Retrieves the profiles current competitive Season Rank.
+    
 **getEndorsementLevel()** :String
 
-    Retrieves the profiles endorsement level.
+    Retrieves the profiles endorsement level. Error of .01%
     
 **getEndorsementDistribution()** :String
 
-    Retrieves the profiles endorsement distribution, percentage.
+    Retrieves the profiles endorsement distribution, percentage. Error of .01%
     
     output:     Shotcaller : 0.33
                 Teammate : 0.40

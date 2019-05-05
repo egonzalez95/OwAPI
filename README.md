@@ -5,8 +5,7 @@ to pull specific data from PUBLIC/PRIVATE profiles. Keep in mind, that if Blizza
 likely have to update this code. I will be using a Java based web-crawler using the JSoup library that I had previously
 developed.
 
-If this goes well, the few who care to make any Overwatch related application can use this! This is mostly for me though,
-and exploring new crawling techniques.
+There are already API's created by other users so this is mostly a learning outcome.
 
 ## Running the API
 To come. In developmental stages first, then functional API will be set.
@@ -27,10 +26,12 @@ This will be fixed later on so that a username and platform suffice.
     :: input: https://playoverwatch.com/en-us/career/pc/Seagull-1894
     
     :: output:
-    Success [https://playoverwatch.com/en-us/career/pc/Seagull-1894]
+    Success reaching and connecting to [https://playoverwatch.com/en-us/career/pc/Seagull-1894]
     Username: Seagull
     Private Account? false
-    Rank: 61
+    Rank: 661
+    Competitive Rank: Grandmaster
+    Competitive Season Rank: 4155
     Endorsement Level: 3
      - Teammate : 0.38
      - Sportsmanship : 0.24
