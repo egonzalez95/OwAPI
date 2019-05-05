@@ -19,6 +19,23 @@ Documentation for the API can be found [HERE](DOCUMENTATION.md)
     - Username text-file parser to process multiple usernames
     - Exporter to save the results
     
+## Where is this project so far?
+So far, the following output is displayed when entering a users profile. 
+This will be fixed later on so that a username and platform suffice.
+
+
+    :: input: https://playoverwatch.com/en-us/career/pc/Seagull-1894
+    
+    :: output:
+    Success [https://playoverwatch.com/en-us/career/pc/Seagull-1894]
+    Username: Seagull
+    Private Account? false
+    Rank: 61
+    Endorsement Level: 3
+     - Teammate : 0.38
+     - Sportsmanship : 0.24
+     - Shotcaller : 0.38
+
 ## Notes
 Let it be known that I am in no way affiliated with Blizzard. This scraper is not meant to cause damages and is purely
 for allowing developers an option when coding Overwatch related projects.
