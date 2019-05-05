@@ -25,19 +25,24 @@ So far, the following output is displayed when entering a users profile.
 This will be fixed later on so that a username and platform suffice.
 
 
-    :: input: https://playoverwatch.com/en-us/career/pc/Seagull-1894
+    :: Example run:
     
-    :: output:
-    Success reaching and connecting to [https://playoverwatch.com/en-us/career/pc/Seagull-1894]
-    Username: Seagull
-    Private Account? false
-    Rank: 661
-    Competitive Rank: Grandmaster
-    Competitive Season Rank: 4155
-    Endorsement Level: 3
-     - Teammate : 0.38
-     - Sportsmanship : 0.24
-     - Shotcaller : 0.38
+    > Enter the profile username for the user you are searching for (CASE/SYMBOL SENSITIVE): Seagull-1894
+    Profile found on pc
+    Profile URL: https://playoverwatch.com/en-us/career/pc/Seagull-1894
+    Profile Username: Seagull
+    Profile Privacy: false
+    Profile Rank: 661
+    Profile Competitive Rank: Grandmaster
+    Profile Competitive Season Rank: 4155
+    Profile Endorsement Level: 3
+    Profile Endorsement Breakdown:
+    
+    Teammate : 0.38
+    Sportsmanship : 0.24
+    Shotcaller : 0.38
+    
+    > Would you like to search again? ... ... ...
 
 ## Notes
 Let it be known that I am in no way affiliated with Blizzard. This scraper is not meant to cause damages and is purely

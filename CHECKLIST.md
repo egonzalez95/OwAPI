@@ -1,10 +1,12 @@
 ## TO-DO
 
-:x: Allow user input
+:heavy_check_mark: Allow user input
 
-:x: Allow input text file of profile | platform pairs
+:heavy_check_mark: Allow user to decide when they are done
 
-:x: Auto-process profile | platform pairs
+:x: Allow input text file of profiles
+
+:heavy_check_mark: Auto-process profile | platform pairs
 
 :x: Process multiple profiles
 
@@ -26,7 +28,7 @@
 
 :heavy_check_mark: Handle non-existing, non-placed and non-endorsed accounts.
 
-:x: Save and sort ingested data into proper data structures
+:x: Save and sort ingested data into proper data structures (sort-of done)
 
 :x: Write API engine
 

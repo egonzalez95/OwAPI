@@ -49,17 +49,16 @@ public class StatEngine {
         this.grabProfileIdentifiers();
 
         if (privacyhuh){
-            System.out.println("** User " + username + " has a private profile.");
-
-            // Let the user know that we have SOME information.
-            System.out.println("What we do know:");
+            // Uncomment below to debug.
+            //System.out.println("** User " + username + " has a private profile.");
 
         }
         else {
             this.data = new PlayerStats(this.username);
         }
 
-        this.basicProfileDataDebugger();
+        // Uncomment to debug.
+        //this.basicProfileDataDebugger();
     }
 
     /*
@@ -100,7 +99,8 @@ public class StatEngine {
             //rankify all three pieces of data.
             this.rank = this.util.rankify(baseRank, portrait, star);
         } catch (NullPointerException NPE) {
-            System.out.println("** User does not exist.");
+            // Uncomment below to debug.
+            //System.out.println("** User does not exist.");
         }
 
         try {
@@ -113,7 +113,8 @@ public class StatEngine {
             Element compSRElement = webpage.select(cssQuery).first();
             this.compSR = this.util.stripString(this.util.stripHTML(compSRElement.toString()));
         } catch (NullPointerException NPE) {
-            System.out.println("** User has no Competitive placement this season.");
+            // Uncomment below to debug.
+            //System.out.println("** User has no Competitive placement this season.");
             this.compRank = "Not placed.";
             this.compSR = "Not placed.";
         }
@@ -141,19 +142,19 @@ public class StatEngine {
             String sportsmanshipPercent = endorsementCategoriesElement.attr("data-value");
             this.endorsements.put("Sportsmanship", sportsmanshipPercent);
         } catch (NullPointerException NPE0) {
-            System.out.println("User has not been endorsed.");
+            // Uncomment below to debug.
+            //System.out.println("** User has not been endorsed.");
 
         }
         // Uncomment below to debug this process.
         //this.basicProfileDataDebugger();
-
-        Element profileElement = webpage.select("div.masthead").first();
-        //System.out.println("\n\n\n" + profileElement);
     }
 
     private String determineCompetitiveRank(String imageURL) {
         if (imageURL.contains("Grandmaster")) {
             return "Grandmaster";
+        } else if (imageURL.contains("Master")) {
+            return "Master";
         } else if (imageURL.contains("Diamond")) {
             return "Diamond";
         } else if (imageURL.contains("Platinum")) {
@@ -166,7 +167,6 @@ public class StatEngine {
             return "Bronze";
         }
     }
-
 
     private void basicProfileDataDebugger(){
         System.out.println("Success reaching and connecting to [" + wpURL + "]");

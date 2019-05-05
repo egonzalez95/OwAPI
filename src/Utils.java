@@ -21,6 +21,12 @@ public class Utils {
         return text.replaceAll("\\r| |\\n", "");
     }
 
+    // Utility that fills whitespace in a URL.
+    public String fillURL(String url) {
+        // in return: trip linebreaks / spaces / new lines
+        return url.replaceAll(" ", "%20");
+    }
+
     // Utility that strips portrait/star links for ranks.
     public String stripRankURL(String text) {
         // Pre and Post links
