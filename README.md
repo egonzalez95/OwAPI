@@ -7,6 +7,8 @@ developed.
 
 There are already API's created by other users so this is mostly a learning outcome.
 
+This in no way rips from other projects that might be similar to this or might be names similarly.
+
 ## Running the API
 To come. In developmental stages first, then functional API will be set.
 
@@ -41,3 +43,5 @@ This will be fixed later on so that a username and platform suffice.
 Let it be known that I am in no way affiliated with Blizzard. This scraper is not meant to cause damages and is purely
 for allowing developers an option when coding Overwatch related projects.
  
+ 
+    Written with passion in Boston, MA by Emilio Gonzalez.
