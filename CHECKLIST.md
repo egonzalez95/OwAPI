@@ -16,7 +16,7 @@
 
 :heavy_check_mark: Tell Jsoup how to read from the page
 
-:heavy_check_mark: Generate basic profile information, at least in test stage
+:heavy_check_mark: Generate basic profile information PUBLIC/PRIVATE
 
 :heavy_check_mark: Differentiate public and private profiles
 
@@ -26,7 +26,7 @@
 
 :heavy_check_mark: Create data structures for quick play and competitive modes
 
-:heavy_check_mark: Handle non-existing, non-placed and non-endorsed accounts.
+:heavy_check_mark: Handle non-existing, non-placed and non-endorsed accounts
 
 :x: Save and sort ingested data into proper data structures (sort-of done)
 
