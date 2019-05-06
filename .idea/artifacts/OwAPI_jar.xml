@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="OwAPI:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/OwAPI_jar</output-path>
+    <root id="archive" name="OwAPI.jar">
+      <element id="module-output" name="OwAPI" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../javalibs/jsoup-1.11.3.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

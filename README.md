@@ -12,6 +12,12 @@ This in no way rips from other projects that might be similar to this or might b
 ## Running the API
 To come. In developmental stages first, then functional API will be set.
 
+For now, you can run this [locally](OwAPI.jar) if you have the latest version of java installed.
+
+    In CMD prompt:
+    
+    java -jar OwAPI.jar
+
 ## Documentation
 Documentation for the API can be found [HERE](DOCUMENTATION.md)
 
