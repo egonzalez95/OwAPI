@@ -57,7 +57,7 @@ public class StatEngine {
         // Uncomment to debug.
         //this.basicProfileDataDebugger();
     }
-    
+
     /*
         Actual API stuff ###########################################
      */
@@ -75,6 +75,11 @@ public class StatEngine {
     // Is the account private?
     public boolean isPrivate() {
         return this.privacyhuh;
+    }
+
+    // Is the account found?
+    public boolean isFound() {
+        return this.username != null;
     }
 
     // return users rank

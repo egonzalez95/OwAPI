@@ -27,7 +27,7 @@ public class OwAPI {
                 boolean foundFlag = false;
                 for (String pf : platforms) {
                     StatEngine SE = new StatEngine(util.fillURL(preLink + pf + "/" + profile));
-                    if (SE.getUsername() != null) {
+                    if (SE.isFound()) {
                         foundFlag = true;
                         System.out.println("Profile found on " + pf);
                         showStats(SE);

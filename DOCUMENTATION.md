@@ -11,18 +11,22 @@
 **isPrivate()** :String
 
     Retrieves the profiles privacy.
-    
+ 
+**isFound()** :String
+ 
+    Is the profile found?
+     
 **getRank()** :String
 
     Retrieves the profiles rank.
     
 **getCompetitiveRank()** :String
     
-        Retrieves the profiles current competitive rank.
+    Retrieves the profiles current competitive rank.
         
 **getCompSR()** :String
     
-        Retrieves the profiles current competitive Season Rank.
+    Retrieves the profiles current competitive Season Rank.
     
 **getEndorsementLevel()** :String
 
