@@ -5,7 +5,6 @@ import org.jsoup.nodes.Element;
 import java.io.IOException;
 import java.util.HashMap;
 
-
 public class StatEngine {
 
     // Webpage stats
@@ -23,8 +22,6 @@ public class StatEngine {
 
     // For our misc. helpers
     private Utils util = new Utils();
-
-    // Advanced stats for the player if it is a public profile
 
     private PlayerStats data;
 
@@ -54,21 +51,89 @@ public class StatEngine {
         } else {
             // Run advanced search.
             this.data = new PlayerStats(this.username);
+            this.runFullPlayerStatCollection();
         }
 
         // Uncomment to debug.
         //this.basicProfileDataDebugger();
     }
+    
+    /*
+        Actual API stuff ###########################################
+     */
+
+    // Return the profile url
+    public String getProfileURL() {
+        return this.wpURL;
+    }
+
+    // Return the username
+    public String getUsername() {
+        return this.username;
+    }
+
+    // Is the account private?
+    public boolean isPrivate() {
+        return this.privacyhuh;
+    }
+
+    // return users rank
+    public String getRank() {
+        return this.rank;
+    }
+
+    // return the users endorsement level
+    public String getEndorsementLevel() {
+        return this.endorsementLevel;
+    }
+
+    // return endorsement level distribution
+    public String endorsementDistribution() {
+        String rv = "";
+        for (String key : this.endorsements.keySet()) {
+            rv += (key + " : " + this.endorsements.get(key) + "\n");
+        }
+        return rv;
+    }
+
+    // Return endorsement level by type.
+    // Shotcaller, Teammate, Sportsmanship.
+    public String getSpecificEndorsementDistribution(String type) {
+        return this.endorsements.get(type);
+    }
+
+    // Return the users SR
+    public String getCurrentSeasonSR() {
+        return this.compSR;
+    }
+
+    // Return the users Competitive Rank
+    public String getCurrentSeasonRank() {
+        return this.compRank;
+    }
+
 
     /*
-        Grab a profiles basic identifiers.
-            - Profile URL
-            - Profile username
-            - Profile privacy
-            - Rank
-            - Endorsement Level
-                - Endorsement breakdowns
-     */
+        ENGINE DATA COLLECTION ALGORITHMS
+        - THE FOLLOWING SECTION IS PRETTY LONG BUT AUTOMATES DATA COLLECTION.
+        - WE CAN COLLECT SOME PRIVATE ACCOUNT INFORMATION.
+        - WE CAN COLLECT MOST PUBLIC ACCOUNT INFORMATION.
+
+    */
+
+    /*
+        ALL USER PROFILES, PUBLIC AND PRIVATE
+    */
+
+    /*
+    Grab a profiles basic identifiers.
+        - Profile URL
+        - Profile username
+        - Profile privacy
+        - Rank
+        - Endorsement Level
+            - Endorsement breakdowns
+    */
     private void grabProfileIdentifiers() {
         // Used to temporarily hold the CSS Query.
         String cssQuery;
@@ -121,7 +186,7 @@ public class StatEngine {
             // Grab Competative Rank
             cssQuery = "div.competitive-rank";
             Element compRankElement = webpage.select(cssQuery).first();
-            this.compRank = this.determineCompetitiveRank(compRankElement.toString());
+            this.compRank = this.util.determineCompetitiveRank(compRankElement.toString());
 
             // Grab Competative SR
             Element compSRElement = webpage.select(cssQuery).first();
@@ -164,24 +229,6 @@ public class StatEngine {
         //this.basicProfileDataDebugger();
     }
 
-    private String determineCompetitiveRank(String imageURL) {
-        if (imageURL.contains("Grandmaster")) {
-            return "Grandmaster";
-        } else if (imageURL.contains("Master")) {
-            return "Master";
-        } else if (imageURL.contains("Diamond")) {
-            return "Diamond";
-        } else if (imageURL.contains("Platinum")) {
-            return "Platinum";
-        } else if (imageURL.contains("Gold")) {
-            return "Gold";
-        } else if (imageURL.contains("Silver")) {
-            return "Silver";
-        } else {
-            return "Bronze";
-        }
-    }
-
     private void basicProfileDataDebugger() {
         System.out.println("Success reaching and connecting to [" + wpURL + "]");
         System.out.println("Username: " + this.username);
@@ -195,61 +242,12 @@ public class StatEngine {
         }
     }
 
-
     /*
+        PUBLIC USER PROFILES
+    */
 
-        Actual API stuff ###########################################
-
-     */
-
-    // Return the profile url
-    public String getProfileURL() {
-        return this.wpURL;
-    }
-
-    // Return the username
-    public String getUsername() {
-        return this.username;
-    }
-
-    // Is the account private?
-    public boolean isPrivate() {
-        return this.privacyhuh;
-    }
-
-    // return users rank
-    public String getRank() {
-        return this.rank;
-    }
-
-    // return the users endorsement level
-    public String getEndorsementLevel() {
-        return this.endorsementLevel;
-    }
-
-    // return endorsement level distribution
-    public String endorsementDistribution() {
-        String rv = "";
-        for (String key : this.endorsements.keySet()) {
-            rv += (key + " : " + this.endorsements.get(key) + "\n");
-        }
-        return rv;
-    }
-
-    // Return endorsement level by type.
-    // Shotcaller, Teammate, Sportsmanship.
-    public String getSpecificEndorsementDistribution(String type) {
-        return this.endorsements.get(type);
-    }
-
-    // Return the users SR
-    public String getCurrentSeasonSR() {
-        return this.compSR;
-    }
-
-    // Return the users Competitive Rank
-    public String getCurrentSeasonRank() {
-        return this.compRank;
+    public void runFullPlayerStatCollection() {
+        // Nothing yet :)
     }
 
 }

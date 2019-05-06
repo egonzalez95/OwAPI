@@ -35,6 +35,7 @@ public class Utils {
         String postlink = "\\.png \\)";
         String post = "\\)";
 
+        // run sanitation
         text = text.replaceAll(pre, "");
         text = text.replaceAll(prelink, "");
         text = text.replaceAll(postlink, "");
@@ -57,9 +58,29 @@ public class Utils {
         return Integer.toString(rv);
     }
 
+    public String determineCompetitiveRank(String imageURL) {
+        if (imageURL.contains("Grandmaster")) {
+            return "Grandmaster";
+        } else if (imageURL.contains("Master")) {
+            return "Master";
+        } else if (imageURL.contains("Diamond")) {
+            return "Diamond";
+        } else if (imageURL.contains("Platinum")) {
+            return "Platinum";
+        } else if (imageURL.contains("Gold")) {
+            return "Gold";
+        } else if (imageURL.contains("Silver")) {
+            return "Silver";
+        } else {
+            return "Bronze";
+        }
+    }
+
     // Assign all the ranks
     private void initializeRanks() {
         // Compiled with an XML crawler.
+        // SYNTAX: image code, modifier.
+
         // Bronze
         this.ranks.put("1055f5ae3a84b7bd8afa9fcbd2baaf9a412c63e8fe5411025b3264db12927771", 0);
         this.ranks.put("69c2c1aff0db8429a980bad7db76a3388003e43f0034097dc4cfa7f13c5de7d7", 0);
