@@ -11,7 +11,7 @@ public class OwAPI {
         //  flow control.
         boolean done = false;
         while (!done) {
-            System.out.print("Enter the profile username for the user you are searching for (CASE/SYMBOL SENSITIVE): ");
+            System.out.print(">> Enter the profile username for the user you are searching for (CASE/SYMBOL SENSITIVE): ");
             String profile = kb.nextLine();
             try {
 
@@ -34,14 +34,14 @@ public class OwAPI {
                     }
                 }
                 if (!foundFlag) {
-                    System.out.println("User was not found, " +
+                    System.out.println(">> User was not found, " +
                             "please check the profile name again and confirm it is the account you're looking for.");
                 }
             } catch (NullPointerException NPE) {
                 // Lets go ahead and do nothing.
             }
 
-            System.out.print("Would you like to search again? ");
+            System.out.print(">> Would you like to search again? ");
             String userDoneHuh = kb.nextLine();
 
             // lazy way of determining if user is done.

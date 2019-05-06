@@ -29,7 +29,7 @@ public class StatEngine {
     private PlayerStats data;
 
     // Constructor
-    StatEngine(String wplink){
+    StatEngine(String wplink) {
         try {
             // Populate the webpage and all of the statistics
             this.wpURL = wplink;
@@ -48,12 +48,11 @@ public class StatEngine {
         // Grab the username and profile privacy.
         this.grabProfileIdentifiers();
 
-        if (privacyhuh){
-            // Uncomment below to debug.
-            //System.out.println("** User " + username + " has a private profile.");
+        if (privacyhuh) {
+            // Can't run advanced search.
 
-        }
-        else {
+        } else {
+            // Run advanced search.
             this.data = new PlayerStats(this.username);
         }
 
@@ -70,7 +69,7 @@ public class StatEngine {
             - Endorsement Level
                 - Endorsement breakdowns
      */
-    private void grabProfileIdentifiers(){
+    private void grabProfileIdentifiers() {
         // Used to temporarily hold the CSS Query.
         String cssQuery;
 
@@ -87,15 +86,30 @@ public class StatEngine {
             privacyhuh = !privacy.contains("Public Profile");
 
             // Grab Profile Rank and calculate it.
+
+            // Portrait
             cssQuery = "div.player-level";
             Element portraitElement = webpage.select(cssQuery).first();
             String portrait = portraitElement.attr("style");
-            cssQuery = "div.player-rank";
-            Element starElement = webpage.select(cssQuery).first();
-            String star = starElement.attr("style");
+
+            // Star + code tweaks
+            // Users that have never earned a star won't have this CSS attribute.
+            String star = "";
+            try {
+                // If we find it great!
+                cssQuery = "div.player-rank";
+                Element starElement = webpage.select(cssQuery).first();
+                star = starElement.attr("style");
+            } catch (NullPointerException NPE) {
+                // We can leave it initialized to empty.
+            }
+
+            // Rank number
             cssQuery = "div.u-vertical-center";
             Element rankElement = webpage.select(cssQuery).first();
             String baseRank = this.util.stripString(this.util.stripHTML(rankElement.toString()));
+
+
             //rankify all three pieces of data.
             this.rank = this.util.rankify(baseRank, portrait, star);
         } catch (NullPointerException NPE) {
@@ -168,7 +182,7 @@ public class StatEngine {
         }
     }
 
-    private void basicProfileDataDebugger(){
+    private void basicProfileDataDebugger() {
         System.out.println("Success reaching and connecting to [" + wpURL + "]");
         System.out.println("Username: " + this.username);
         System.out.println("Private Account? " + privacyhuh);
@@ -176,7 +190,7 @@ public class StatEngine {
         System.out.println("Competitive Rank: " + this.compRank);
         System.out.println("Competitive Season Rank: " + this.compSR);
         System.out.println("Endorsement Level: " + this.endorsementLevel);
-        for (String key : this.endorsements.keySet()){
+        for (String key : this.endorsements.keySet()) {
             System.out.println(" - " + key + " : " + this.endorsements.get(key));
         }
     }
@@ -189,34 +203,34 @@ public class StatEngine {
      */
 
     // Return the profile url
-    public String getProfileURL(){
+    public String getProfileURL() {
         return this.wpURL;
     }
 
     // Return the username
-    public String getUsername(){
+    public String getUsername() {
         return this.username;
     }
 
     // Is the account private?
-    public boolean isPrivate(){
+    public boolean isPrivate() {
         return this.privacyhuh;
     }
 
     // return users rank
-    public String getRank(){
+    public String getRank() {
         return this.rank;
     }
 
     // return the users endorsement level
-    public String getEndorsementLevel(){
+    public String getEndorsementLevel() {
         return this.endorsementLevel;
     }
 
     // return endorsement level distribution
-    public String endorsementDistribution(){
+    public String endorsementDistribution() {
         String rv = "";
-        for (String key : this.endorsements.keySet()){
+        for (String key : this.endorsements.keySet()) {
             rv += (key + " : " + this.endorsements.get(key) + "\n");
         }
         return rv;
@@ -224,7 +238,7 @@ public class StatEngine {
 
     // Return endorsement level by type.
     // Shotcaller, Teammate, Sportsmanship.
-    public String getSpecificEndorsementDistribution(String type){
+    public String getSpecificEndorsementDistribution(String type) {
         return this.endorsements.get(type);
     }
 
