@@ -30,7 +30,7 @@ public class OwAPI {
                     if (SE.isFound()) {
                         foundFlag = true;
                         System.out.println("Profile found on " + pf);
-                        showStats(SE);
+                        SE.printBasicProfileInformation();
                     }
                 }
                 if (!foundFlag) {
@@ -49,16 +49,5 @@ public class OwAPI {
         }
 
         System.out.println("Thanks for using this tool! https://github.com/egonzalez95");
-    }
-
-    public static void showStats(StatEngine SE) {
-        System.out.println("Profile URL: " + SE.getProfileURL());
-        System.out.println("Profile Username: " + SE.getUsername());
-        System.out.println("Profile Privacy: " + SE.isPrivate());
-        System.out.println("Profile Rank: " + SE.getRank());
-        System.out.println("Profile Competitive Rank: " + SE.getCurrentSeasonRank());
-        System.out.println("Profile Competitive Season Rank: " + SE.getCurrentSeasonSR());
-        System.out.println("Profile Endorsement Level: " + SE.getEndorsementLevel());
-        System.out.println("Profile Endorsement Breakdown:\n\n" + SE.endorsementDistribution());
     }
 }

@@ -7,6 +7,7 @@ public class Stats {
     private GameMode mode;
     private HashMap<String, String> playerStats = new HashMap<>();
     private HashMap<String, HashMap<String, String>> charStats = new HashMap<>();
+    // character, stat, value
 
     // Constructor
     public Stats(String username, GameMode mode){
