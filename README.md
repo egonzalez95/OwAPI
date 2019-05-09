@@ -56,4 +56,4 @@ for allowing developers an option when coding Overwatch related projects.
  
 Developer Page: [Overwatch](https://us.shop.battle.net/en-us/product/overwatch)
  
-    Written with passion in Boston, MA by Emilio Gonzalez.
+    Written with passion in Boston, MA by Emilio Gonzalez - 2019.
