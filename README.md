@@ -9,6 +9,8 @@ There are already API's created by other users so this is mostly a learning outc
 
 This in no way rips from other projects that might be similar to this or might be names similarly.
 
+Last note, this program is far from an API right now and will work as a stat generator tool.
+
 ## Running the API
 To come. In developmental stages first, then functional API will be set.
 
@@ -33,22 +35,20 @@ This will be fixed later on so that a username and platform suffice.
 
     :: Example run:
     
-    > Enter the profile username for the user you are searching for (CASE/SYMBOL SENSITIVE): Seagull-1894
-    Profile found on pc
-    Profile URL: https://playoverwatch.com/en-us/career/pc/Seagull-1894
-    Profile Username: Seagull
-    Profile Privacy: false
-    Profile Rank: 661
-    Profile Competitive Rank: Grandmaster
-    Profile Competitive Season Rank: 4155
-    Profile Endorsement Level: 3
-    Profile Endorsement Breakdown:
-    
-    Teammate : 0.38
-    Sportsmanship : 0.24
-    Shotcaller : 0.38
-    
-    > Would you like to search again? ... ... ...
+        >> Enter the profile username for the user you are searching for (CASE/SYMBOL SENSITIVE): Seagull-1894
+        Profile found on pc
+        Profile Username: Seagull
+        Profile Privacy: false
+        Profile Rank: 664
+        Profile Competitive Rank: Grandmaster
+        Profile Competitive Season Rank: 4212
+        Profile Endorsement Level: 3
+        Profile Endorsement Breakdown:
+         -> Teammate: 0.38
+         -> Sportsmanship: 0.24
+         -> Shotcaller: 0.38
+        Profile total wins: 1969
+        >> Would you like to search again?
 
 ## Notes
 Let it be known that I am in no way affiliated with Blizzard. This scraper is not meant to cause damages and is purely

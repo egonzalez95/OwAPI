@@ -94,7 +94,7 @@ public class PlayerStats {
         //System.out.println("Set wins for " + this.profileUsername);
     }
 
-    public void printAll() {
+    public void printBasic() {
         System.out.println("Profile Username: " + this.profileUsername);
         System.out.println("Profile Privacy: " + this.privateAccount);
         System.out.println("Profile Rank: " + this.overallRank);
@@ -105,5 +105,9 @@ public class PlayerStats {
         for (String type : this.endorsements.keySet()) {
             System.out.println(" -> " + type + ": " + this.endorsements.get(type));
         }
+    }
+
+    public void printPublicInfo() {
+        System.out.println("Profile total wins: " + this.totalWins);
     }
 }

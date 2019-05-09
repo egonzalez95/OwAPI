@@ -58,7 +58,7 @@ public class StatEngine {
 
             } else {
                 // Run advanced search.
-                //this.runFullPlayerStatCollection();
+                this.runFullPlayerStatCollection();
             }
         } else {
             // do nothing for now.
@@ -187,7 +187,11 @@ public class StatEngine {
     }
 
     public void printBasicProfileInformation() {
-        this.userData.printAll();
+        this.userData.printBasic();
+    }
+
+    public void printPublicProfileInformation() {
+        this.userData.printPublicInfo();
     }
 
     /*
@@ -197,14 +201,25 @@ public class StatEngine {
     private void runFullPlayerStatCollection() {
         String cssQuery;
 
-        // User total wins
-        cssQuery = "masthead-detail h4";
-        Element eUserTotalWins = this.webpage.select(cssQuery).first();
-        this.userData.setTotalWins(this.util.stripString(this.util.stripHTML(eUserTotalWins.toString())));
+        try {// User total wins
+            cssQuery = "p.masthead-detail";
+            Element eUserTotalWins = this.webpage.select(cssQuery).first();
+            String wins = this.util.stripString(this.util.stripHTML(eUserTotalWins.toString()));
+            // further stripping
+            this.userData.setTotalWins(this.util.stripAlpha(wins));
+        }
+        catch(NullPointerException NPE){
+            // do nothing.
+        }
     }
 
     // is the username found?
     public boolean isFound() {
         return (username != null);
+    }
+
+    // returns account privacy
+    public boolean isPrivate(){
+        return this.privacyhuh;
     }
 }

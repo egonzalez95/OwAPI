@@ -46,6 +46,12 @@ public class Utils {
         return text;
     }
 
+    // Utility that strips non-digits.
+    public String stripAlpha(String text){
+        text = text.replaceAll("[^\\d]", "" );
+        return text;
+    }
+
     public String rankify(String rank, String portrait, String stars) {
 
         // Strip links

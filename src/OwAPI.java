@@ -31,6 +31,10 @@ public class OwAPI {
                         foundFlag = true;
                         System.out.println("Profile found on " + pf);
                         SE.printBasicProfileInformation();
+                        if (!SE.isPrivate()){
+                            // Print more info.
+                            SE.printPublicProfileInformation();
+                        }
                     }
                 }
                 if (!foundFlag) {
